@@ -1,12 +1,101 @@
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from "@fortawesome/fontawesome-svg-core";
 
 import {
-    faCircleCheck, faR,
+    faAddressBook,
+    faArrowDown,
+    faArrowRight,
+    faBoxArchive,
+    faCalendarDays,
+    faCartPlus,
+    faCircleCheck,
+    faCircleDot,
+    faCircleXmark,
+    faClock,
+    faCouch,
+    faEye,
+    faEyeSlash,
+    faFaceGrinWink,
+    faGlassWater,
+    faHotel,
+    faHouse,
+    faLocationDot,
+    faMinus,
+    faN,
+    faPaperPlane,
+    faPhone,
+    faPhoneVolume,
+    faPizzaSlice,
+    faPlus,
+    faR,
+    faRightToBracket,
     faS,
+    faSnowflake,
+    faSortDown,
+    faSquare,
+    faSquareCheck,
+    faTablet,
+    faToiletPortable,
+    faTrashCan,
+    faTruck,
+    faTv,
     faUserSecret,
-} from '@fortawesome/free-solid-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
+    faUtensils,
+    faVrCardboard,
+    faWandMagicSparkles,
+} from "@fortawesome/free-solid-svg-icons";
 
+import {
+    faSquareInstagram,
+    faSquareOdnoklassniki,
+    faVk,
+} from "@fortawesome/free-brands-svg-icons";
+
+library.add(
+    faS,
+    faR,
+    faN,
+    faUserSecret,
+    faHouse,
+    faUtensils,
+    faHotel,
+    faAddressBook,
+    faRightToBracket,
+    faTruck,
+    faWandMagicSparkles,
+    faCartPlus,
+    faPhone,
+    faEye,
+    faLocationDot,
+    faFaceGrinWink,
+    faVrCardboard,
+    faCalendarDays,
+    faArrowDown,
+    faArrowRight,
+    faGlassWater,
+    faSquare,
+    faPizzaSlice,
+    faTablet,
+    faBoxArchive,
+    faPhoneVolume,
+    faTv,
+    faCouch,
+    faSnowflake,
+    faToiletPortable,
+    faPaperPlane,
+    faEyeSlash,
+    faPlus,
+    faMinus,
+    faTrashCan,
+    faCircleXmark,
+    faCircleCheck,
+    faCircleDot,
+    faClock,
+    faSquareCheck,
+    faSortDown,
+    faVk,
+    faSquareOdnoklassniki,
+    faSquareInstagram
+);
 /*
 Шапка
 <font-awesome-icon :icon="['fas', 'house']" />
@@ -66,5 +155,3 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 <font-awesome-icon :icon="['fas', 'square-check']" />
 <font-awesome-icon :icon="['fas', 'sort-down']" />
 */
-
-library.add(faS, faR, far, faCircleCheck, faUserSecret)
