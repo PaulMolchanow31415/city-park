@@ -1,8 +1,8 @@
 import './bootstrap';
-import '../css/app.css';
+import '../scss/app.scss';
 
 import { createApp, h } from 'vue'
-import { createInertiaApp } from '@inertiajs/vue3'
+import { createInertiaApp, Head, Link } from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m'
 import "./font-awesome.js"
@@ -17,10 +17,12 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
-            .component('font-awesome-icon', FontAwesomeIcon)
+            .component('FontAwesomeIcon', FontAwesomeIcon)
+            .component('Head', Head)
+            .component('Link', Link)
             .mount(el);
     },
     progress: {
-        color: '#4B5563',
+        color: '#3C1C11',
     },
 });
