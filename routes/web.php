@@ -1,29 +1,17 @@
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/welcome', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name("welcome");
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])
+    -> group(function () {
+        Route ::get('/dashboard', function () {
+            return Inertia ::render('Dashboard');
+        }) -> name('dashboard');
+    });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-});
+Route::get('/', fn() => inertia('Home')) -> name('home');
 
+Route::get('/rest', fn() => inertia('Rest/Index')) -> name('rest');
 
-Route::get('/', fn() => inertia('Home', [
-    'isAdmin' => true
-])) -> name('home');
+Route::get('/hotel', fn() => inertia('Hotel')) -> name('hotel');

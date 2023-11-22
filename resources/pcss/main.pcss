@@ -1,0 +1,49 @@
+@import "fonts.pcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] {display: none;}
+
+@layer base {
+    html {
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        @apply bg-white;
+    }
+
+    body { @apply font-sans text-base leading-6 text-dark;}
+
+    h1, h2, h3, h4, h5, h6 {@apply font-serif text-3xl text-dark font-normal leading-tight;}
+}
+
+@layer components {
+    .price {@apply font-sans font-black leading-tight text-maroon;}
+    .hovered {
+        &__description {@apply opacity-0 transform -translate-y-1 transition}
+        &:hover &__description {
+            opacity: 1;
+            transform: unset;
+        }
+    }
+}
+
+@layer utilities {
+    .with-tooltip {
+        @apply relative;
+        &::after {
+            content: attr(data-tooltip);
+            @apply bg-shadow rounded-md text-white -mt-3 w-max py-2.5 px-3 text-xs;
+        }
+        &::before {
+            @apply content-[''] border-solid;
+            border-width: .83rem .875rem 0 .875rem;
+            border-color: theme('colors.shadow') transparent transparent transparent;
+        }
+        &::after, &::before {
+            @apply absolute top-0 left-1/2 opacity-0 transition transform -translate-x-1/2 -translate-y-full z-50;
+        }
+        &:hover::after, &:hover::before {@apply opacity-100;}
+    }
+}

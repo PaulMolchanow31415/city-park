@@ -12,6 +12,8 @@
         "laravel/jetstream": "^4.1",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "diglactic/laravel-breadcrumbs": "^8.1",
+        "robertboes/inertia-breadcrumbs": "^0.4.0",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {

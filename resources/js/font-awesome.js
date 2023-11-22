@@ -1,4 +1,4 @@
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { library } from '@fortawesome/fontawesome-svg-core';
 
 import {
     faAddressBook,
@@ -42,13 +42,13 @@ import {
     faUtensils,
     faVrCardboard,
     faWandMagicSparkles,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
 import {
     faSquareInstagram,
     faSquareOdnoklassniki,
     faVk,
-} from "@fortawesome/free-brands-svg-icons";
+} from '@fortawesome/free-brands-svg-icons';
 
 library.add(
     faS,
