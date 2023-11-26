@@ -1,3 +1,4 @@
+<!--
 <script setup>
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
@@ -6,7 +7,7 @@ import DangerButton from '@/Components/DangerButton.vue';
 import DialogModal from '@/Components/DialogModal.vue';
 import InputError from '@/Components/InputError.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+
 
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref(null);
@@ -58,7 +59,7 @@ const closeModal = () => {
                 </DangerButton>
             </div>
 
-            <!-- Delete Account Confirmation Modal -->
+            &lt;!&ndash; Delete Account Confirmation Modal &ndash;&gt;
             <DialogModal :show="confirmingUserDeletion" @close="closeModal">
                 <template #title>
                     Delete Account
@@ -68,7 +69,7 @@ const closeModal = () => {
                     Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.
 
                     <div class="mt-4">
-                        <TextInput
+&lt;!&ndash;                        <TextInput
                             ref="passwordInput"
                             v-model="form.password"
                             type="password"
@@ -76,7 +77,7 @@ const closeModal = () => {
                             placeholder="Password"
                             autocomplete="current-password"
                             @keyup.enter="deleteUser"
-                        />
+                        />&ndash;&gt;
 
                         <InputError :message="form.errors.password" class="mt-2" />
                     </div>
@@ -100,3 +101,4 @@ const closeModal = () => {
         </template>
     </ActionSection>
 </template>
+-->

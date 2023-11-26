@@ -1,3 +1,5 @@
+<!--
+
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import AuthenticationCard from '@/Components/AuthenticationCard.vue';
@@ -110,3 +112,4 @@ const submit = () => {
         </form>
     </AuthenticationCard>
 </template>
+-->

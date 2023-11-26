@@ -10,6 +10,7 @@ import {
     faCircleCheck,
     faCircleDot,
     faCircleXmark,
+    faXmark,
     faClock,
     faCouch,
     faEye,
@@ -87,6 +88,7 @@ library.add(
     faMinus,
     faTrashCan,
     faCircleXmark,
+    faXmark,
     faCircleCheck,
     faCircleDot,
     faClock,
@@ -148,6 +150,7 @@ library.add(
 <font-awesome-icon :icon="['fas', 'minus']" />
 <font-awesome-icon :icon="['fas', 'trash-can']" />
 <font-awesome-icon :icon="['fas', 'circle-xmark']" />
+<font-awesome-icon :icon="['fas', 'xmark']" />
 <font-awesome-icon :icon="['fas', 'circle-check']" />
 <font-awesome-icon :icon="['far', 'circle-dot']" />
 <font-awesome-icon :icon="['fas', 'circle-dot']" />

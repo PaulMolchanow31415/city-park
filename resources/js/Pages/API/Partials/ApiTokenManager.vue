@@ -1,3 +1,4 @@
+<!--
 <script setup>
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
@@ -74,7 +75,7 @@ const deleteApiToken = () => {
 
 <template>
     <div>
-        <!-- Generate API Token -->
+        &lt;!&ndash; Generate API Token &ndash;&gt;
         <FormSection @submitted="createApiToken">
             <template #title>
                 Create API Token
@@ -85,7 +86,7 @@ const deleteApiToken = () => {
             </template>
 
             <template #form>
-                <!-- Token Name -->
+                &lt;!&ndash; Token Name &ndash;&gt;
                 <div class="col-span-6 sm:col-span-4">
                     <InputLabel for="name" value="Name" />
                     <TextInput
@@ -98,7 +99,7 @@ const deleteApiToken = () => {
                     <InputError :message="createApiTokenForm.errors.name" class="mt-2" />
                 </div>
 
-                <!-- Token Permissions -->
+                &lt;!&ndash; Token Permissions &ndash;&gt;
                 <div v-if="availablePermissions.length > 0" class="col-span-6">
                     <InputLabel for="permissions" value="Permissions" />
 
@@ -127,7 +128,7 @@ const deleteApiToken = () => {
         <div v-if="tokens.length > 0">
             <SectionBorder />
 
-            <!-- Manage API Tokens -->
+            &lt;!&ndash; Manage API Tokens &ndash;&gt;
             <div class="mt-10 sm:mt-0">
                 <ActionSection>
                     <template #title>
@@ -138,7 +139,7 @@ const deleteApiToken = () => {
                         You may delete any of your existing tokens if they are no longer needed.
                     </template>
 
-                    <!-- API Token List -->
+                    &lt;!&ndash; API Token List &ndash;&gt;
                     <template #content>
                         <div class="space-y-6">
                             <div v-for="token in tokens" :key="token.id" class="flex items-center justify-between">
@@ -170,7 +171,7 @@ const deleteApiToken = () => {
             </div>
         </div>
 
-        <!-- Token Value Modal -->
+        &lt;!&ndash; Token Value Modal &ndash;&gt;
         <DialogModal :show="displayingToken" @close="displayingToken = false">
             <template #title>
                 API Token
@@ -193,7 +194,7 @@ const deleteApiToken = () => {
             </template>
         </DialogModal>
 
-        <!-- API Token Permissions Modal -->
+        &lt;!&ndash; API Token Permissions Modal &ndash;&gt;
         <DialogModal :show="managingPermissionsFor != null" @close="managingPermissionsFor = null">
             <template #title>
                 API Token Permissions
@@ -226,7 +227,7 @@ const deleteApiToken = () => {
             </template>
         </DialogModal>
 
-        <!-- Delete Token Confirmation Modal -->
+        &lt;!&ndash; Delete Token Confirmation Modal &ndash;&gt;
         <ConfirmationModal :show="apiTokenBeingDeleted != null" @close="apiTokenBeingDeleted = null">
             <template #title>
                 Delete API Token
@@ -253,3 +254,4 @@ const deleteApiToken = () => {
         </ConfirmationModal>
     </div>
 </template>
+-->

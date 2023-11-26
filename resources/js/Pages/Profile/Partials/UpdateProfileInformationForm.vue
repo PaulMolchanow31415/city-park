@@ -1,3 +1,4 @@
+<!--
 <script setup>
 import { ref } from 'vue';
 import { Link, router, useForm } from '@inertiajs/vue3';
@@ -86,9 +87,9 @@ const clearPhotoFileInput = () => {
         </template>
 
         <template #form>
-            <!-- Profile Photo -->
+            &lt;!&ndash; Profile Photo &ndash;&gt;
             <div v-if="$page.props.jetstream.managesProfilePhotos" class="col-span-6 sm:col-span-4">
-                <!-- Profile Photo File Input -->
+                &lt;!&ndash; Profile Photo File Input &ndash;&gt;
                 <input
                     id="photo"
                     ref="photoInput"
@@ -99,12 +100,12 @@ const clearPhotoFileInput = () => {
 
                 <InputLabel for="photo" value="Photo" />
 
-                <!-- Current Profile Photo -->
+                &lt;!&ndash; Current Profile Photo &ndash;&gt;
                 <div v-show="! photoPreview" class="mt-2">
                     <img :src="user.profile_photo_url" :alt="user.name" class="rounded-full h-20 w-20 object-cover">
                 </div>
 
-                <!-- New Profile Photo Preview -->
+                &lt;!&ndash; New Profile Photo Preview &ndash;&gt;
                 <div v-show="photoPreview" class="mt-2">
                     <span
                         class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
@@ -128,7 +129,7 @@ const clearPhotoFileInput = () => {
                 <InputError :message="form.errors.photo" class="mt-2" />
             </div>
 
-            <!-- Name -->
+            &lt;!&ndash; Name &ndash;&gt;
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="name" value="Name" />
                 <TextInput
@@ -142,7 +143,7 @@ const clearPhotoFileInput = () => {
                 <InputError :message="form.errors.name" class="mt-2" />
             </div>
 
-            <!-- Email -->
+            &lt;!&ndash; Email &ndash;&gt;
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="email" value="Email" />
                 <TextInput
@@ -188,3 +189,4 @@ const clearPhotoFileInput = () => {
         </template>
     </FormSection>
 </template>
+-->

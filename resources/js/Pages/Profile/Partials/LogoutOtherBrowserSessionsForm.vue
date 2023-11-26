@@ -1,3 +1,4 @@
+<!--
 <script setup>
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
@@ -7,7 +8,7 @@ import DialogModal from '@/Components/DialogModal.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+// import TextInput from '@/Components/TextInput.vue';
 
 defineProps({
     sessions: Array,
@@ -57,7 +58,7 @@ const closeModal = () => {
                 If necessary, you may log out of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.
             </div>
 
-            <!-- Other Browser Sessions -->
+            &lt;!&ndash; Other Browser Sessions &ndash;&gt;
             <div v-if="sessions.length > 0" class="mt-5 space-y-6">
                 <div v-for="(session, i) in sessions" :key="i" class="flex items-center">
                     <div>
@@ -97,7 +98,7 @@ const closeModal = () => {
                 </ActionMessage>
             </div>
 
-            <!-- Log Out Other Devices Confirmation Modal -->
+            &lt;!&ndash; Log Out Other Devices Confirmation Modal &ndash;&gt;
             <DialogModal :show="confirmingLogout" @close="closeModal">
                 <template #title>
                     Log Out Other Browser Sessions
@@ -107,7 +108,7 @@ const closeModal = () => {
                     Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.
 
                     <div class="mt-4">
-                        <TextInput
+&lt;!&ndash;                        <TextInput
                             ref="passwordInput"
                             v-model="form.password"
                             type="password"
@@ -115,9 +116,9 @@ const closeModal = () => {
                             placeholder="Password"
                             autocomplete="current-password"
                             @keyup.enter="logoutOtherBrowserSessions"
-                        />
+                        />&ndash;&gt;
 
-                        <InputError :message="form.errors.password" class="mt-2" />
+&lt;!&ndash;                        <InputError :message="form.errors.password" class="mt-2" />&ndash;&gt;
                     </div>
                 </template>
 
@@ -139,3 +140,4 @@ const closeModal = () => {
         </template>
     </ActionSection>
 </template>
+-->

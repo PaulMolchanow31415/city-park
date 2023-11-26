@@ -1,3 +1,4 @@
+<!--
 <script setup>
 import { computed, ref, watch } from 'vue';
 import { router, useForm, usePage } from '@inertiajs/vue3';
@@ -251,3 +252,4 @@ const disableTwoFactorAuthentication = () => {
         </template>
     </ActionSection>
 </template>
+-->
