@@ -1,17 +1,17 @@
 <script>
-import { defineComponent } from 'vue';
+import AddressInput from '@/Components/AddressInput.vue';
+import AppInput from '@/Components/AppInput.vue';
+import DatePicker from '@/Components/DatePicker.vue';
+import InfoAlert from '@/Components/InfoAlert.vue';
+import InfoBox from '@/Components/InfoBox.vue';
 import MenuCard from '@/Components/MenuCard.vue';
-import { mapGetters, mapMutations } from 'vuex';
+import Modal from '@/Components/Modal.vue';
+import PhoneInput from '@/Components/PhoneInput.vue';
 import BaseLayout from '@/Layouts/BaseLayout.vue';
 import MenuLayout from '@/Layouts/MenuLayout.vue';
-import InfoBox from '@/Components/InfoBox.vue';
-import InfoAlert from '@/Components/InfoAlert.vue';
-import Modal from '@/Components/Modal.vue';
-import DatePicker from '@/Components/DatePicker.vue';
-import AddressInput from '@/Components/AddressInput.vue';
-import PhoneInput from '@/Components/PhoneInput.vue';
 import { Link } from '@inertiajs/vue3';
-import AppInput from '@/Components/AppInput.vue';
+import { defineComponent } from 'vue';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default defineComponent({
   name: 'Menu',
@@ -25,6 +25,7 @@ export default defineComponent({
       selectedDate: null,
       withDelivery: true,
       timeOrderPick: null,
+      name: '',
       phone: '',
       email: '',
       wishes: '',
@@ -61,7 +62,9 @@ export default defineComponent({
     },
     handleOrder() {
       this.showOrderModal = false
+      this.showInfoBox = false
       console.log('do order...')
+      this.clearCart()
     },
   },
 })
@@ -137,8 +140,7 @@ export default defineComponent({
 </InfoBox>
 
 <!-- BUY MODAL -->
-<!--showOrderModal-->
-<Modal :show="true" @close="showOrderModal = false">
+<Modal :show="showOrderModal" @close="showOrderModal = false">
   <form @submit.prevent="console.log('submitting...')" class="p-5 flex flex-col gap-5">
 
     <div>
@@ -172,17 +174,17 @@ export default defineComponent({
       </label>
       <AddressInput v-show="withDelivery" placeholder="Начните вводить адрес"/>
     </div>
-    <input v-model="name" class="form-input rounded" type="text" placeholder="Имя">
+    <input v-model="name" class="app-input" type="text" placeholder="Имя">
     <div class="flex gap-2.5 items-center">
       <PhoneInput v-model="phone" placeholder="Контактный телефон" class="flex-grow"/>
       <AppInput v-model="email" label="Email" type="email" class="flex-grow" placeholder="test@mail.com"/>
     </div>
-    <textarea v-model="wishes" class="form-textarea rounded h-24 min-h-[2.7rem]" placeholder="Ваши пожелания"></textarea>
+    <textarea v-model="wishes" class="app-textarea" placeholder="Ваши пожелания"></textarea>
     <div>
-      <p class="block text-brown">Стоимость доставки: {{ 123 }}₽</p>
+      <p v-show="withDelivery && !isFreeDeliveryAvailable" class="block text-brown">Стоимость доставки: {{ 100 }}₽</p>
       <div class="flex items-center gap-1.5">
         <p class="font-serif text-2xl">К оплате:</p>
-        <p class="price text-3xl text-dark">{{ 350 }}</p>
+        <p class="price text-3xl text-dark">{{ getOrderSum }}</p>
       </div>
     </div>
     <label class="inline-flex items-center">

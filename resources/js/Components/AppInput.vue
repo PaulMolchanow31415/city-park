@@ -40,16 +40,10 @@ export default defineComponent({
         </label>
         <input :type="type || 'text'"
                :id="$options.inputId"
-               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                      block w-full py-2.5 px-3 transition duration-200 focus:ring-blue-500 focus:border-blue-500
-                      placeholder:font-sans"
                :placeholder="placeholder"
                :required="required"
                @input="$emit('update:modelValue', $event.target.value)"
+               class="app-input"
         >
     </div>
 </template>
-
-<style scoped lang="postcss">
-
-</style>

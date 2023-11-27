@@ -1,8 +1,7 @@
 <script setup>
+import Breadcrumbs from '@/Components/Breadcrumbs.vue';
 import NewsCard from '@/Components/NewsCard.vue';
 import TitleUnderlined from '@/Components/TitleUnderlined.vue';
-import Breadcrumbs from '@/Components/Breadcrumbs.vue';
-import { Head, Link } from '@inertiajs/vue3';
 import { useBreadcrumbs } from '@/composables/index.js';
 
 const breadcrumbs = useBreadcrumbs()
