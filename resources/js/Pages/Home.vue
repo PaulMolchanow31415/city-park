@@ -4,17 +4,14 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
 import TitleUnderlined from '@/Components/TitleUnderlined.vue';
 import NewsCard from '@/Components/NewsCard.vue';
-import HotelRoomCard from '@/Components/HotelRoomCard.vue';
 import MapChapter from '@/Components/MapChapter.vue';
 import MenuSection from '@/Components/MenuSection.vue';
 
 const modules = [Pagination, EffectFade, Autoplay];
 
 defineProps({
-  amountFreeRooms: {
-    type: Number,
-    default: 2,
-  },
+  news: Object,
+  menuItems: Object,
 });
 
 </script>
@@ -28,28 +25,22 @@ defineProps({
         <SwiperSlide class="slider__item"/>
         <SwiperSlide class="slider__item"/>
       </Swiper>
-      <div class="absolute left-0 bottom-0 bg-white rounded-tr-lg py-5 pr-5 pl-[2vw] z-10">
+      <div class="absolute left-0 bottom-0 bg-white rounded-tr-lg py-5 pr-5 pl-[2vw] z-10 max-w-md">
         <TitleUnderlined class="mb-10">Новости и мероприятия</TitleUnderlined>
         <div class="flex flex-col gap-2.5 mb-10">
-          <NewsCard :data="{title: 'Hello', content: 'Try new salad', datetime: new Date('12.12.2222')}"/>
-          <NewsCard :data="{title: 'Hello', content: 'Try new salad', datetime: new Date('11.10.1234')}"/>
-          <NewsCard :data="{title: 'Hello', content: 'Try new salad', datetime: new Date('7.10.1234')}"/>
+          <NewsCard v-for="item in news.data" :data="item" :key="item.id"/>
         </div>
         <div class="w-full flex justify-end">
-          <Link :href="route('rest.news')"
+          <Link :href="route('rest.news.index')"
                 class="btn-1">
             Подробнее
           </Link>
         </div>
       </div>
     </section>
-    <MenuSection class="mt-28" :items="[
-            {id: 1, name: 'Вкусный чай', price: 200, weight: '600 г' },
-            {id: 2, name: 'Вкусный limon', description: 'cold and sweet', price: 300, weight: '100 г', isOnlineSaleAvailable: true },
-            {id: 3, name: 'Вкусный cake',  price: 1550, weight: '200 г' }
-        ]"/>
+    <MenuSection class="mt-28" :items="menuItems.data"/>
 
-    <section class="mt-28 container">
+    <!--  <section class="mt-28 container">
       <div class="flex items-center justify-between gap-7">
         <div class="flex gap-5 px-5 items-center">
           <span class="font-serif font-normal text-8xl text-maroon leading-tight">{{ amountFreeRooms }}</span>
@@ -59,7 +50,7 @@ defineProps({
         </div>
         <TitleUnderlined>Каталог номеров</TitleUnderlined>
       </div>
-      <div class="grid grid-cols-3 gap-5">
+    <div class="grid grid-cols-3 gap-5">
         <HotelRoomCard class="flex-grow" isAvailable :data="{
                     id: 1,
                     title: 'Одноместные номера',
@@ -79,7 +70,7 @@ defineProps({
                     pricePerDay: '6000'
                 }"/>
       </div>
-    </section>
+    </section>-->
 
     <TitleUnderlined class="container mb-10 mt-32">Контактная информация</TitleUnderlined>
     <MapChapter/>

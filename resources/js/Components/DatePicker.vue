@@ -29,7 +29,7 @@ export default defineComponent({
                  :min-date="new Date()"
                  focus-start-date
   >
-    <template #input-icon><font-awesome-icon class="ml-2" :icon="['fas', 'clock']" size="lg"/></template>
+    <template #input-icon><font-awesome-icon class="ml-2.5" :icon="['fas', 'clock']" size="lg"/></template>
     <template #clock-icon><font-awesome-icon :icon="['fas', 'clock']" /></template>
     <template #calendar-icon><font-awesome-icon icon="calendar-days" /></template>
     <template #clear-icon="{ clear }">
@@ -57,7 +57,7 @@ export default defineComponent({
   --dp-cell-padding: 5px; /*Padding in the cell*/
   --dp-common-padding: 10px; /*Common padding used*/
   --dp-input-icon-padding: 35px; /*Padding on the left side of the input if icon is present*/
-  --dp-input-padding: 6px 30px 6px 12px; /*Padding in the input*/
+  --dp-input-padding: theme('padding[2.5]') theme('padding.14') theme('padding[2.5]') theme('padding.3'); /*Padding in the input*/
   --dp-menu-min-width: 260px; /*Adjust the min width of the menu*/
   --dp-action-buttons-padding: 2px 5px; /*Adjust padding for the action buttons in action row*/
   --dp-row-margin:  5px 0; /*Adjust the spacing between rows in the calendar*/
@@ -66,15 +66,14 @@ export default defineComponent({
   --dp-overlay-col-padding:  3px; /*Padding in the overlay column*/
   --dp-time-inc-dec-button-size:  32px; /*Sizing for arrow buttons in the time picker*/
   --dp-menu-padding: 6px 8px; /*Menu padding*/
+  /*Font sizes*/
+  --dp-font-size: theme('fontSize.sm'); /*Default font-size*/
+  --dp-preview-font-size: theme('fontSize.sm'); /*Font size of the date preview in the action row*/
+  //--dp-time-font-size: theme('fontSize.sm'); /*Font size in the time picker*/
 
-  /*!*Font sizes*!
-  --dp-font-size: 1rem; !*Default font-size*!
-  --dp-preview-font-size: 0.8rem; !*Font size of the date preview in the action row*!
-  --dp-time-font-size: 0.8rem; !*Font size in the time picker*!
-
-  !*Transitions*!
-  --dp-animation-duration: 0.1s; !*Transition duration*!
-  --dp-menu-appear-transition-timing: cubic-bezier(.4, 0, 1, 1); !*Timing on menu appear animation*!
-  --dp-transition-timing: ease-out; !*Timing on slide animations*!*/
+  /*Transitions*/
+  --dp-animation-duration: 0.1s; /*Transition duration*/
+  --dp-menu-appear-transition-timing: cubic-bezier(.4, 0, 1, 1); /*Timing on menu appear animation*/
+  --dp-transition-timing: ease-out; /*Timing on slide animations*/
 }
 </style>

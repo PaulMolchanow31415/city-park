@@ -1,3 +1,68 @@
+# Generate a model and a FlightFactory class...
+php artisan make:model Flight --factory
+php artisan make:model Flight -f
+
+# Generate a model and a FlightSeeder class...
+php artisan make:model Flight --seed
+php artisan make:model Flight -s
+
+# Generate a model and a FlightController class...
+php artisan make:model Flight --controller
+php artisan make:model Flight -c
+
+# Generate a model, FlightController resource class, and form request classes...
+php artisan make:model Flight --controller --resource --requests
+php artisan make:model Flight -crR
+
+# Generate a model and a FlightPolicy class...
+php artisan make:model Flight --policy
+
+# Generate a model and a migration, factory, seeder, and controller...
+php artisan make:model Flight -mfsc
+
+# Shortcut to generate a model, migration, factory, seeder, policy, controller, and form requests...
+php artisan make:model Flight --all
+
+# Generate a pivot model...
+php artisan make:model Member --pivot
+php artisan make:model Member -p
+
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\LoginFormRequest;
+
+class AuthController extends Controller {
+public function login(LoginFormRequest $request) {
+if (!auth()->attempt($request->validated())) {
+return redirect()
+->route('login')
+->withErrors(['email', 'Почта или пароль указаны не верно']);
+}
+
+        return redirect()->route('home');
+    }
+
+    public function logout(): RedirectResponse {
+        auth()->logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+        return redirect()->route('home');
+    }
+}
+
+//Route::controller(AuthController::class)->group(function () {
+//    Route::post('/login', 'login')
+//        ->name('login')
+//        ->middleware('guest');
+//    Route::delete('/logout', 'logout')
+//        ->name('logout')
+//        ->middleware('auth');
+//});
+//Route::get('/profile', [UserController::class, 'show'])->middleware('auth');
+
 import { nextTick, reactive, ref } from 'vue';
 
 const emit = defineEmits(['confirmed']);

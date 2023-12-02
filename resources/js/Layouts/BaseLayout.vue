@@ -11,6 +11,24 @@ provide('idGeneration', function (salt) {
   crypto.getRandomValues(uint8Array)
   return Array.from(uint8Array, dec2hex).join('')
 })
+
+provide('formatDate', function (date) {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = String(date.getFullYear()).slice(2);
+  return `${day}.${month}.${year}`;
+})
+
+provide('formatTime', (date) =>
+  `${(date.getFullYear() + '').slice(-2)}.${(date.getMonth() + 1).toString().padStart(2, '0')
+  }.${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')
+  }:${date.getMinutes().toString().padStart(2, '0')}`
+)
+
+provide('formatPhoneToHref', function (phoneNumber) {
+  const digits = phoneNumber.replace(/\D/g, ''); // удаляем все нецифровые символы
+  return `tel:${digits}`;
+})
 </script>
 
 <template>

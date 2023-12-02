@@ -15,24 +15,34 @@ Breadcrumbs::for('contacts', fn(BreadcrumbTrail $trail)
     => $trail -> parent('home') -> push('Контактная информация', route('contacts')));
 
 // Ресторан
-Breadcrumbs ::for('rest', fn (BreadcrumbTrail $trail)
-    => $trail -> parent('home') -> push('Ресторан и летнее кафе', route('rest')));
+Breadcrumbs ::for('rest.index', fn (BreadcrumbTrail $trail)
+    => $trail -> parent('home') -> push('Ресторан и летнее кафе', route('rest.index')));
 
 Breadcrumbs ::for('rest.restaurant', fn (BreadcrumbTrail $trail)
-    => $trail -> parent('rest') -> push('Ресторан', route('rest.restaurant')));
+    => $trail -> parent('rest.index') -> push('Ресторан', route('rest.restaurant')));
 
 Breadcrumbs::for('rest.cafe', fn (BreadcrumbTrail $trail)
-    => $trail -> parent('rest') -> push('Летнее кафе', route('rest.cafe')));
+    => $trail -> parent('rest.index') -> push('Летнее кафе', route('rest.cafe')));
 
-Breadcrumbs::for('rest.news', fn (BreadcrumbTrail $trail)
-    => $trail -> parent('rest') -> push('Новости и мероприятия', route('rest.news')));
+Breadcrumbs::for('rest.news.index', fn (BreadcrumbTrail $trail)
+    => $trail -> parent('rest.index') -> push('Новости и мероприятия', route('rest.news.index')));
 
-Breadcrumbs::for('rest.menu', fn (BreadcrumbTrail $trail)
-    => $trail -> parent('rest') -> push('Меню', route('rest.menu')));
+Breadcrumbs::for('rest.menu.index', fn (BreadcrumbTrail $trail)
+    => $trail -> parent('rest.index') -> push('Меню', route('rest.menu.index')));
 
-// TODO
-//Breadcrumbs::for('rest.news.show', fn(BreadcrumbTrail $trail, int $id)
-//    => $trail -> parent('rest.news', ['id' => $id]) -> push("Something ".$id, route('rest.news.show')));
+Breadcrumbs::for('rest.menu.show-by-category', function (BreadcrumbTrail $trail, string $name) {
+    $trail -> parent('rest.menu.index')
+        -> push($name, route('rest.menu.show-by-category', ['name' => $name]));
+    return $trail;
+});
+
+Breadcrumbs::for('rest.news.show', function(BreadcrumbTrail $trail, int $id) {
+    $title = \App\Models\News::find($id)->title;
+    $trail -> parent('rest.news.index', ['id' => $id])
+        -> push($title, route('rest.news.index'));
+    return $trail;
+});
+
 
 // Отель
 Breadcrumbs::for('hotel', fn(BreadcrumbTrail $trail)

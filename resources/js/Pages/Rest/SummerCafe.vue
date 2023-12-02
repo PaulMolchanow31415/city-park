@@ -1,18 +1,17 @@
 <script setup>
 
-import { useBreadcrumbs } from '@/composables/index.js'
+import { useBreadcrumbs } from '@/Composables/index.js'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 import { Head, Link } from '@inertiajs/vue3'
 import TitleUnderlined from '@/Components/TitleUnderlined.vue'
-import BaseLayout from '@/Layouts/BaseLayout.vue';
-import RestLayout from '@/Layouts/RestLayout.vue';
 import ThumbedSlider from '@/Components/ThumbedSlider.vue';
 import PanoramaLink from '@/Components/PanoramaLink.vue';
+import MenuSection from '@/Components/MenuSection.vue';
 
 const breadcrumbs = useBreadcrumbs()
 const pageTitle = breadcrumbs.value[breadcrumbs.value.length - 1].title
 
-defineOptions({ layout: [BaseLayout, RestLayout] })
+defineProps({ menuItems: Object })
 </script>
 
 <template>
@@ -30,7 +29,8 @@ defineOptions({ layout: [BaseLayout, RestLayout] })
                 {src: 'https://cityparkvip.ru/static/media/image3.856ba718.jpg', alt: '4'},
                 {src: 'https://cityparkvip.ru/static/media/image4.44f519ce.jpg', alt: '4'},
                 {src: 'https://cityparkvip.ru/static/media/image6.de4b7339.jpg', alt: '4'},
-              ]"/>
+              ]"
+      />
 
       <div class="with-content">
         <h6>Уютное летнее кафе, где вы всегда можете укрыться от городского зноя в прохладной тени или уединиться в застекленной охлаждаемой террасе.</h6>
@@ -38,17 +38,21 @@ defineOptions({ layout: [BaseLayout, RestLayout] })
         <p>На всей территории РГК City Park доступен бесплатный Wi-fi</p>
         <p>Забронировать столик или заказать доставку еды по Белореченску вы можете по телефону
           <a class="underline font-bold" href="tel:79183119791">+7-918-311-97-91</a> или на
-          <Link class="underline font-bold" :href="route('rest')">
+          <Link class="underline font-bold" :href="route('rest.index')">
             сайте РГК City Park www.cityparkvip.ru в разделе "Меню"
           </Link>
         </p>
         <div class="flex mt-10 gap-5">
           <Link class="btn-1" :href="route('rest.restaurant')">Перейти к ресторану</Link>
-          <PanoramaLink class="bg-lime text-dark hover:bg-dark hover:text-white" src="https://cityparkvip.ru/tour/kafe.html" />
+          <PanoramaLink class="bg-lime text-dark hover:bg-dark hover:text-white"
+                        src="https://cityparkvip.ru/tour/kafe.html"
+          />
         </div>
       </div>
     </div>
 
   </div>
+
+  <MenuSection class="mt-28" :items="menuItems.data"/>
 
 </template>

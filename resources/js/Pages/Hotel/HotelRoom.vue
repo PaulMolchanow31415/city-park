@@ -1,5 +1,5 @@
 <script setup>
-import { useBreadcrumbs } from '@/composables/index.js';
+import { useBreadcrumbs } from '@/Composables/index.js';
 import { Head } from '@inertiajs/vue3';
 import Breadcrumbs from '@/Components/Breadcrumbs.vue';
 import TitleUnderlined from '@/Components/TitleUnderlined.vue';

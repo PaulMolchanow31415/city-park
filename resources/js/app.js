@@ -1,17 +1,17 @@
 import './bootstrap.js';
 
-import store from '@/store/index.js';
+import Store from '@/Store/index.js';
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import YandexMaps, { yandexMap, ymapMarker } from 'vue-yandex-maps';
-import './plugins/font-awesome.js';
+import '@/Plugins/font-awesome.js';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import BaseLayout from './Layouts/BaseLayout.vue';
 import '../pcss/main.pcss';
-import './plugins/swiper.js'
-import './plugins/quil-editor.js'
+import '@/Plugins/swiper.js'
+import '@/Plugins/quil-editor.js'
 
 const mapApiKey = import.meta.env.VITE_YANDEX_MAPS_KEY
 const autocompleteApiKey = import.meta.env.VITE_YANDEX_AUTOCOMPLETE_KEY
@@ -32,7 +32,7 @@ createInertiaApp({
     .use(plugin)
     .use(ZiggyVue)
     .use(YandexMaps, { apiKey: mapApiKey })
-    .use(store)
+    .use(Store)
     .component('YandexMap', yandexMap)
     .component('YmapMarker', ymapMarker)
     .component('FontAwesomeIcon', FontAwesomeIcon)
@@ -42,4 +42,5 @@ createInertiaApp({
   progress: {
     color: '#3c1c11',
   },
-}).then();
+})
+.then();

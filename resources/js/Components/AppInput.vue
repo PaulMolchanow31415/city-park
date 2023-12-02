@@ -6,44 +6,41 @@ export default defineComponent({
   inputId: '',
   props: {
     modelValue: {
-      type: [String, Number]
+      type: [String, Number],
     },
     type: {
       type: String,
-      default: 'text'
+      default: 'text',
     },
     label: {
       type: String,
-      required: true
-    },
-    placeholder: {
-      type: String,
+      required: true,
     },
     required: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
+    placeholder: String,
+    autocomplete: String,
   },
   emits: ['update:modelValue'],
-  inject: ['idGeneration'],
-  created() {
-    this.$options.inputId = this.idGeneration(this.label)
-  }
+
 })
 </script>
 
 <template>
     <div>
-        <label :for="$options.inputId"
-               class="block mb-2 pl-1.5 text-sm font-medium text-gray-900 dark:text-white">
-            {{ label }}
+        <label>
+          <span class="app-label">{{ label }}</span>
+          <input :type="type || 'text'"
+                 :id="$options.inputId"
+                 :placeholder="placeholder"
+                 :required="required"
+                 :autocomplete="autocomplete"
+                 :value="modelValue"
+                 @input="$emit('update:modelValue', $event.target.value)"
+                 class="app-input"
+          >
         </label>
-        <input :type="type || 'text'"
-               :id="$options.inputId"
-               :placeholder="placeholder"
-               :required="required"
-               @input="$emit('update:modelValue', $event.target.value)"
-               class="app-input"
-        >
     </div>
 </template>

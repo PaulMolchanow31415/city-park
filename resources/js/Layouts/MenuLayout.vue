@@ -5,23 +5,12 @@ import InfoBox from '@/Components/InfoBox.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import TitleUnderlined from '@/Components/TitleUnderlined.vue';
 import Breadcrumbs from '@/Components/Breadcrumbs.vue';
-import { useBreadcrumbs } from '@/composables/index.js';
+import { useBreadcrumbs } from '@/Composables/index.js';
 
 export default defineComponent({
   name: 'MenuLayout',
   components: { Breadcrumbs, Head, TitleUnderlined, Link, InfoAlert, InfoBox },
-  categories: [
-    { name: 'Спецпредложение', time: '40min' },
-    { name: 'Постное меню', time: '20min' },
-    { name: 'Бургеры', time: '10min' },
-    { name: 'Завтраки', time: '10min' },
-    { name: 'Завтраки', time: '10min' },
-    { name: 'Завтраки', time: '10min' },
-    { name: 'Бургеры', time: '10min' },
-    { name: 'Бургеры', time: '10min' },
-    { name: 'Бургеры', time: '10min' },
-  ],
-  props: { selectedCategory: String },
+  props: { categories: Object },
   setup() {
     const breadcrumbs = useBreadcrumbs()
     const pageTitle = breadcrumbs.value[breadcrumbs.value.length - 1].title
@@ -38,15 +27,16 @@ export default defineComponent({
     <TitleUnderlined as="h6" class="mt-5 mb-10 ml-5">{{ pageTitle }}</TitleUnderlined>
     <div class="flex gap-10">
       <aside class="self-start sticky top-5 left-0 flex flex-col gap-2.5 py-5 px-2.5 max-w-sm basis-1/3
-                          rounded-lg drop-shadow-lg bg-white">
-        <!-- !!!!! :href="route('name-route')" :active="route().current('name-route')"  -->
-        <Link v-for="(category, index) in $options.categories"
-              :href="route('rest.menu.show', {id: category.name})"
-              :key="index"
+                          rounded-lg drop-shadow-lg bg-white"
+      >
+        <Link v-for="category in categories"
+              :href="route('rest.menu.show-by-category', {name: category})"
+              :key="category"
               class="link"
-              :class="{'active': category.name === selectedCategory}">
+              :class="{'active': route().current('rest.menu.show-by-category', {name: category})}"
+        >
           <hr class="line"/>
-          {{ category.name }} <span v-if="category.name === selectedCategory">({{ category.time }})</span>
+          {{ category }} <!--<span v-if="category.name === null">({{ category.time }})</span>-->
         </Link>
       </aside>
       <div class="basis-2/3 grid grid-cols-2 gap-y-2.5 gap-x-5 self-start">
@@ -71,7 +61,7 @@ export default defineComponent({
   @apply flex items-center gap-1.5 py-1.5 px-2.5 rounded-md transition duration-200;
   .line {@apply h-px w-0 bg-white transition delay-75 duration-700;}
   &:hover {@apply bg-slate-100;}
-  .active {
+  &.active {
     @apply bg-brown text-white;
     .line {@apply w-5;}
   }

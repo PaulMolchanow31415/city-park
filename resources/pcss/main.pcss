@@ -33,11 +33,15 @@
   }
   .btn-1 { @apply inline-block py-4 px-5 rounded-md border border-brown transition hover:bg-brown hover:text-white;}
   .btn-2 { @apply inline-flex items-center gap-1.5 py-4 px-5 rounded-md border bg-dark text-white transition hover:bg-maroon;}
-  .btn-3 { @apply inline-flex justify-center items-center gap-1.5 py-4 px-5 rounded-md bg-lime text-dark transition hover:bg-dark hover:text-white;}
+  .btn-3 { @apply inline-flex justify-center items-center gap-1.5 py-4 px-5 rounded-md bg-lime text-dark italic
+  transition hover:bg-dark hover:text-white;}
   .app-input {
     @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
     block w-full py-2.5 px-3 transition duration-200 focus:ring-blue-500 focus:border-blue-500
     placeholder:font-sans;
+  }
+  .app-label {
+    @apply block mb-2 pl-1.5 text-sm font-medium leading-none text-gray-900 cursor-pointer dark:text-white;
   }
   .app-textarea {
     @apply form-textarea rounded-lg h-24 min-h-[2.7rem] bg-gray-50 border border-gray-300 text-gray-900 text-sm
@@ -50,7 +54,7 @@
     @apply relative;
     &::after {
       content: attr(data-tooltip);
-      @apply bg-gray-900 rounded-md text-white -mt-3 w-max py-2.5 px-3 text-xs;
+      @apply bg-gray-900 rounded-md text-white -mt-3 w-max py-2.5 px-3 text-xs transform;
     }
     &::before {
       @apply content-[''] border-solid;

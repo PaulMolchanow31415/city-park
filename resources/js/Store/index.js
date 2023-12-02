@@ -6,12 +6,17 @@ export default createStore({
   },
   getters: {
     getCart: state => state.cart,
+    getCartDto: (state) => {
+      return Array.from(
+        state.cart, ([key, amount]) => ({ id: key.id, amount })
+      );
+    },
     getOrderSum: state => {
       let sum = 0
       state.cart.forEach((value, key) => sum += value * key.price)
       return sum
     },
-    isFreeDeliveryAvailable: (state, getters) => getters.getOrderSum > 499
+    isFreeDeliveryAvailable: (state, getters) => getters.getOrderSum > 499,
   },
   mutations: {
     addCartItem(state, item) {
@@ -35,6 +40,6 @@ export default createStore({
       // console.log('removing', state.cart)
     },
     removeAllCartItems: (state, item) => state.cart.delete(item),
-    clearCart: state => state.cart.clear()
+    clearCart: state => state.cart.clear(),
   },
 })

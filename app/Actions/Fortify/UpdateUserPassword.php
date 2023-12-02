@@ -7,22 +7,24 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\UpdatesUserPasswords;
 
-class UpdateUserPassword implements UpdatesUserPasswords
-{
+class UpdateUserPassword implements UpdatesUserPasswords {
     use PasswordValidationRules;
 
     /**
      * Validate and update the user's password.
      *
      * @param  array<string, string>  $input
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(User $user, array $input): void
-    {
+    public function update(User $user, array $input): void {
         Validator::make($input, [
             'current_password' => ['required', 'string', 'current_password:web'],
-            'password' => $this->passwordRules(),
+            'password'         => $this->passwordRules(),
         ], [
-            'current_password.current_password' => __('The provided password does not match your current password.'),
+            'current_password.current_password' => __(
+                'Указанный пароль не совпадает с вашим текущим паролем.',
+            ),
         ])->validateWithBag('updatePassword');
 
         $user->forceFill([

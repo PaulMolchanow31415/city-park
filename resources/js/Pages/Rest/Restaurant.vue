@@ -1,18 +1,17 @@
 <script setup>
 
-import { useBreadcrumbs } from '@/composables/index.js'
+import { useBreadcrumbs } from '@/Composables/index.js'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 import { Head, Link } from '@inertiajs/vue3'
 import TitleUnderlined from '@/Components/TitleUnderlined.vue'
-import BaseLayout from '@/Layouts/BaseLayout.vue';
-import RestLayout from '@/Layouts/RestLayout.vue';
 import ThumbedSlider from '@/Components/ThumbedSlider.vue';
 import PanoramaLink from '@/Components/PanoramaLink.vue';
+import MenuSection from '@/Components/MenuSection.vue';
 
 const breadcrumbs = useBreadcrumbs()
 const pageTitle = breadcrumbs.value[breadcrumbs.value.length - 1].title
 
-defineOptions({ layout: [BaseLayout, RestLayout] })
+defineProps({ menuItems: Object })
 </script>
 
 <template>
@@ -54,5 +53,7 @@ defineOptions({ layout: [BaseLayout, RestLayout] })
     </div>
 
   </div>
+
+  <MenuSection class="mt-28" :items="menuItems.data"/>
 
 </template>

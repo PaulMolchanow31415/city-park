@@ -1,15 +1,11 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 
 const props = defineProps({
   data: {
     type: Object,
     required: true,
-  },
-  to: {
-    type: String,
-    default: '/',
   },
   size: {
     type: String,
@@ -17,16 +13,11 @@ const props = defineProps({
   },
 });
 
-function formatDate(date) {
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = String(date.getFullYear()).slice(2);
-  return `${day}.${month}.${year}`;
-}
+const formatDate = inject('formatDate')
 
 const imageClasses = computed(() => {
     return {
-      'md': 'w-60 h-60',
+      'md': 'w-64 h-64',
       'lg': 'w-full',
       'sm': 'w-20 h-20'
     }[props.size]
@@ -36,24 +27,24 @@ const imageClasses = computed(() => {
 
 <template>
     <Link class="block relative w-full bg-white border border-border transition hover:bg-slate-100"
-          :href="to"
+          :href="route('rest.news.show', {id: data.id})"
           :title="data.title"
     >
         <div class="flex" :class="{'flex-col': size === 'lg', 'items-center': size === 'sm' }">
-            <div class="animate-pulse aspect-square" :class="imageClasses">
-                <img v-if="data.src"
-                     :src="data.src"
+            <div class="aspect-square" :class="imageClasses">
+                <img v-if="data.photo_path"
+                     :src="'/storage/' + data.photo_path"
                      :alt="data.title"
-                     class="w-full h-full object-cover">
-                <div v-else class="w-full h-full bg-border"></div>
+                     class="w-full h-full object-cover aspect-square">
+                <div v-else class="w-full h-full bg-border animate-pulse"></div>
             </div>
             <div class="flex justify-between gap-5" :class="{ 'p-5': size !== 'sm', 'items-center': size !== 'md' }">
                 <div :class="{'px-1.5': size === 'sm'}">
                     <p class="font-serif text-maroon line-clamp-1 overflow-ellipsis"
                        :class="{ 'text-base': size === 'sm', 'text-2xl mb-2.5': size !== 'sm' }"
                     >{{ data.title }}</p>
-                    <span class="line-clamp-2 overflow-ellipsis leading-tight"
-                          :class="{'text-xs': size === 'sm'}">
+                    <span class="overflow-ellipsis leading-tight line-clamp-2"
+                          :class="{'text-xs': size === 'sm', 'line-clamp-3': size === 'md'}">
                         {{ data.content }}
                     </span>
                 </div>
@@ -64,7 +55,7 @@ const imageClasses = computed(() => {
             </div>
 
             <span v-if="size === 'sm'" class="absolute top-1.5 right-1.5 text-xs text-brown">
-                {{ formatDate(data.datetime) }}
+                {{ formatDate(new Date(data.datetime)) }}
             </span>
         </div>
     </Link>

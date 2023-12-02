@@ -43,6 +43,9 @@ import {
     faUtensils,
     faVrCardboard,
     faWandMagicSparkles,
+    faCartShopping,
+    faRightFromBracket,
+    faPenToSquare,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -61,9 +64,12 @@ library.add(
     faHotel,
     faAddressBook,
     faRightToBracket,
+    faRightFromBracket,
     faTruck,
     faWandMagicSparkles,
     faCartPlus,
+    faCartShopping,
+    faPenToSquare,
     faPhone,
     faEye,
     faLocationDot,
@@ -96,7 +102,8 @@ library.add(
     faSortDown,
     faVk,
     faSquareOdnoklassniki,
-    faSquareInstagram
+    faSquareInstagram,
+    faWandMagicSparkles,
 );
 /*
 Шапка
@@ -111,6 +118,7 @@ library.add(
 <font-awesome-icon :icon="['fas', 'wand-magic-sparkles']" />
 Карточки
 <font-awesome-icon :icon="['fas', 'cart-plus']" />
+<font-awesome-icon :icon="['fas', 'cart-shopping']" />
 <font-awesome-icon :icon="['fas', 'phone']" />
 <font-awesome-icon :icon="['fas', 'eye']" />
 Контактная информация
