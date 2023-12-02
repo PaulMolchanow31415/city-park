@@ -1,18 +1,16 @@
 <script setup>
 
-import { useBreadcrumbs } from '@/composables/index.js'
+import { useBreadcrumbs } from '@/Composables/index.js'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 import { Head, Link } from '@inertiajs/vue3'
 import TitleUnderlined from '@/Components/TitleUnderlined.vue'
-import BaseLayout from '@/Layouts/BaseLayout.vue';
-import RestLayout from '@/Layouts/RestLayout.vue';
 import ThumbedSlider from '@/Components/ThumbedSlider.vue';
+import MenuSection from '@/Components/MenuSection.vue';
 
 const breadcrumbs = useBreadcrumbs()
 const pageTitle = breadcrumbs.value[breadcrumbs.value.length - 1].title
 
-defineOptions({ layout: [BaseLayout, RestLayout] })
-
+defineProps({ menuItems: Object })
 /*const content = `
 <div>
 <h6 class="text-maroon text-xl mb-5">Комфортный зал ресторана с самым современным музыкальным оборудованием.</h6>
@@ -36,7 +34,8 @@ defineOptions({ layout: [BaseLayout, RestLayout] })
                 {src: 'https://cityparkvip.ru/static/media/city_park_1.19bc7ff8.jpg', alt: 'alter 1'},
                 {src: 'https://cityparkvip.ru/static/media/cafe_2.337b105e.jpg', alt: 'jungle 2'},
                 {src: 'https://cityparkvip.ru/static/media/cafe_terrasa.0cb327f9.jpg', alt: 'safari 3'}
-              ]"/>
+              ]"
+      />
 
       <div class="with-content">
         <h6>Комфортный зал ресторана с самым современным музыкальным оборудованием.</h6>
@@ -44,12 +43,12 @@ defineOptions({ layout: [BaseLayout, RestLayout] })
           время суток царит романтическая вечерняя атмосфера City Park.</p>
         <p>Настоящая джазовая и классическая музыка, chill-out и танцевальные направления.</p>
         <p>
-          <Link class="underline font-bold" :href="route('rest')">Уютное летнее кафе</Link>
+          <Link class="underline font-bold" :href="route('rest.index')">Уютное летнее кафе</Link>
           , где вы всегда можете укрыться от городского зноя в прохладной тени или уединиться в застекленной охлаждаемой
           террасе.
         </p>
         <p>Насладитесь
-          <Link class="underline font-bold" :href="route('rest')">восхитительными блюдами</Link>
+          <Link class="underline font-bold" :href="route('rest.index')">восхитительными блюдами</Link>
           европейской и японской кухни от первоклассных поваров, а также приятными прохладительными напитками из
           широкого ассортимента бара. Через большие окна террасы в холодное время года вы можете наслаждаться
           великолепным пейзажем городского парка.
@@ -62,5 +61,7 @@ defineOptions({ layout: [BaseLayout, RestLayout] })
     </div>
 
   </div>
+
+  <MenuSection class="mt-28" :items="menuItems.data"/>
 
 </template>

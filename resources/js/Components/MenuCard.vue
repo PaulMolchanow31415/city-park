@@ -35,13 +35,14 @@ export default defineComponent({
        class="border border-border flex"
        :class="{'with-tooltip' : !data.isOnlineSaleAvailable, 'flex-col': size === 'lg'}"
        :title="data.name">
-    <div class="hovered relative bg-slate-100 animate-pulse"
+    <div class="hovered relative"
          :class="{
             'aspect-[19/12]': size === 'lg',
             'aspect-[4/3]' : size === 'sm',
             'basis-[55%]': size === 'sm',
       }">
-      <img v-if="data.src" :src="data.src" :alt="data.name" class="object-cover w-full h-full">
+      <div class="bg-slate-100 animate-pulse absolute left-0 top-0 w-full h-full -z-10"></div>
+      <img v-if="data.src" :src="'/storage/' + data.src" :alt="data.name" class="object-cover w-full h-full">
       <div class="hovered__description absolute left-0 top-0 right-0 bottom-0 bg-shadow flex items-center p-4">
         <span class="font-serif text-white font-bold line-clamp-6 overflow-ellipsis"
               :class="{'text-xs': size === 'sm'}">{{ data.description }}</span>

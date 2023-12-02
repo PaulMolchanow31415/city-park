@@ -79,6 +79,9 @@ export default defineComponent({
 <template>
   <AppInput ref="input"
             label="Телефон"
+            type="tel"
+            autocomplete="tel"
+            required
             :placeholder="placeholder"
             @change="$emit('update:modelValue', $event.target.value)"
             @input="handleInput"

@@ -9,7 +9,7 @@ import Modal from '@/Components/Modal.vue';
 import PhoneInput from '@/Components/PhoneInput.vue';
 import BaseLayout from '@/Layouts/BaseLayout.vue';
 import MenuLayout from '@/Layouts/MenuLayout.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations } from 'vuex';
 
@@ -17,25 +17,36 @@ export default defineComponent({
   name: 'Menu',
   layout: [BaseLayout, MenuLayout],
   components: { AppInput, PhoneInput, AddressInput, DatePicker, Modal, InfoAlert, InfoBox, MenuCard, Link },
+  props: {
+    menuItems: Array,
+    order: Object,
+  },
   data() {
     return {
       showInfoBox: false,
       showMessage: false,
       showOrderModal: false,
+    }
+  },
+  setup() {
+    const form = useForm({
       selectedDate: null,
       withDelivery: true,
       timeOrderPick: null,
+      address: '',
       name: '',
       phone: '',
       email: '',
       wishes: '',
       privacyPolicyAgree: true,
-    }
+      cart: []
+    })
+    return { form }
   },
   computed: {
-    ...mapGetters(['getCart', 'getOrderSum', 'isFreeDeliveryAvailable']),
+    ...mapGetters(['getCart', 'getOrderSum', 'isFreeDeliveryAvailable', 'getCartDto']),
     showCalendar() {
-      return this.timeOrderPick === 'В определенное время'
+      return this.form.timeOrderPick === 'В определенное время'
     },
   },
   watch: {
@@ -48,30 +59,38 @@ export default defineComponent({
       }
       setTimeout(() => this.showMessage = false, 2000)
     },
+    'form.timeOrderPick'(updated) {
+      if (updated === 'В ближайшее время') {
+        this.form.selectedDate = null
+      }
+    },
   },
-  tempdata: [
-    { id: 1, name: 'Вкусный чай', price: 200, weight: '600 г' },
-    { id: 2, name: 'Вкусный limon', description: 'cold and sweet', price: 300, weight: '100 г', isOnlineSaleAvailable: true },
-    { id: 3, name: 'Вкусный cake', price: 1550, weight: '200 г', isOnlineSaleAvailable: true },
-    { id: 4, name: 'Вкусный cake', price: 1550, weight: '200 г' },
-  ],
   methods: {
     ...mapMutations(['addCartItem', 'removeCartItem', 'removeAllCartItems', 'clearCart']),
     handleInput(item, oldValue, newValue) {
       newValue > oldValue ? this.addCartItem(item) : this.removeCartItem(item)
     },
     handleOrder() {
-      this.showOrderModal = false
-      this.showInfoBox = false
-      console.log('do order...')
-      this.clearCart()
+      if (!this.form.privacyPolicyAgree) {
+        return
+      }
+
+      this.form.cart = this.getCartDto
+
+      this.form.post(route('order.create'), {
+        onSuccess: () => {
+          this.showOrderModal = false
+          this.showInfoBox = false
+          this.clearCart()
+        },
+      })
     },
   },
 })
 </script>
 
 <template>
-<MenuCard v-for="item in $options.tempdata"
+<MenuCard v-for="item in menuItems"
           :key="item.id"
           :data="item"
           size="sm"
@@ -140,8 +159,8 @@ export default defineComponent({
 </InfoBox>
 
 <!-- BUY MODAL -->
-<Modal :show="showOrderModal" @close="showOrderModal = false">
-  <form @submit.prevent="console.log('submitting...')" class="p-5 flex flex-col gap-5">
+<Modal :show="showOrderModal" @close="showOrderModal = false" closeable>
+  <form @submit.prevent="handleOrder" class="p-5 flex flex-col gap-5">
 
     <div>
       <div class="flex justify-between items-end mb-2.5">
@@ -155,40 +174,44 @@ export default defineComponent({
     <div class="flex items-center justify-between gap-5">
       <div class="flex-grow flex flex-col">
         <label class="inline-flex items-center">
-          <input v-model="timeOrderPick" name="time" value="В ближайшее время" type="radio" class="form-radio" checked>
+          <input v-model="form.timeOrderPick" name="time" value="В ближайшее время" type="radio" class="form-radio"
+                 checked
+          >
           <span class="ml-2">В ближайшее время</span>
         </label>
         <label class="inline-flex items-center">
-          <input v-model="timeOrderPick" name="time" value="В определенное время" type="radio" class="form-radio">
+          <input v-model="form.timeOrderPick" name="time" value="В определенное время" type="radio" class="form-radio">
           <span class="ml-2">В определенное время</span>
         </label>
       </div>
-      <div v-show="showCalendar">
-        <DatePicker class="px-2.5" v-model="selectedDate"/>
+      <div v-if="showCalendar">
+        <DatePicker class="px-2.5" v-model="form.selectedDate"/>
       </div>
     </div>
     <div class="flex flex-col gap-2.5">
       <label class="inline-flex items-center">
-        <input v-model="withDelivery" type="checkbox" class="form-checkbox rounded-sm">
+        <input v-model="form.withDelivery" type="checkbox" class="form-checkbox rounded-sm">
         <span class="ml-2">Доставка</span>
       </label>
-      <AddressInput v-show="withDelivery" placeholder="Начните вводить адрес"/>
+      <AddressInput v-show="form.withDelivery" v-model="form.address" placeholder="Начните вводить адрес"/>
     </div>
-    <input v-model="name" class="app-input" type="text" placeholder="Имя">
+    <input v-model="form.name" class="app-input" type="text" placeholder="Имя">
     <div class="flex gap-2.5 items-center">
-      <PhoneInput v-model="phone" placeholder="Контактный телефон" class="flex-grow"/>
-      <AppInput v-model="email" label="Email" type="email" class="flex-grow" placeholder="test@mail.com"/>
+      <PhoneInput v-model="form.phone" placeholder="Контактный телефон" class="flex-grow"/>
+      <AppInput v-model="form.email" label="Email" type="email" class="flex-grow" placeholder="test@mail.com"/>
     </div>
-    <textarea v-model="wishes" class="app-textarea" placeholder="Ваши пожелания"></textarea>
+    <textarea v-model="form.wishes" class="app-textarea" placeholder="Ваши пожелания"></textarea>
     <div>
-      <p v-show="withDelivery && !isFreeDeliveryAvailable" class="block text-brown">Стоимость доставки: {{ 100 }}₽</p>
+      <p v-show="form.withDelivery && !isFreeDeliveryAvailable" class="block text-brown">
+        Стоимость доставки: {{ 100 }}₽
+      </p>
       <div class="flex items-center gap-1.5">
         <p class="font-serif text-2xl">К оплате:</p>
         <p class="price text-3xl text-dark">{{ getOrderSum }}</p>
       </div>
     </div>
     <label class="inline-flex items-center">
-      <input v-model="privacyPolicyAgree" type="checkbox" class="form-checkbox rounded-sm">
+      <input v-model="form.privacyPolicyAgree" type="checkbox" class="form-checkbox rounded-sm">
       <span class="ml-2">С&nbsp;
         <Link :href="route('private-policy')" class="underline">политикой конфиденциальности</Link>&nbsp;согласен
       </span>
@@ -197,16 +220,43 @@ export default defineComponent({
       <button @click="showOrderModal = false" type="button" class="btn-2 bg-brown">
         <font-awesome-icon :icon="['fas', 'circle-xmark']" size="lg"/>Отмена
       </button>
-      <button @click="handleOrder" type="button" class="btn-3 italic">
-        <font-awesome-icon :icon="['fas', 'circle-check']" size="lg"/>Далее
+      <button type="submit" class="btn-3 italic">
+        <!--  Todo Далее  -->
+        <font-awesome-icon :icon="['fas', 'circle-check']" size="lg"/>Отправить
       </button>
     </div>
   </form>
+
 </Modal>
+
+<!-- BUTTON -->
+<teleport to="body">
+  <button v-if="!showInfoBox && getCart.size > 0" @click="showInfoBox = true"
+          class="fixed-btn bg-lime w-16 h-16"
+          aria-label="Открыть корзину"
+  >
+    <span class="sr-only">Открыть корзину</span>
+    <font-awesome-icon :icon="['fas', 'cart-shopping']" size="lg"/>
+  </button>
+  <Link
+    v-if="order"
+    :href="route('order.cancel', { id: order.id })"
+    method="delete"
+    as="button"
+    type="button"
+    preserve-scroll
+    class="fixed-btn bg-maroon text-white px-5 py-2.5"
+  >
+    <font-awesome-icon :icon="['fas', 'circle-xmark']"/>Отменить заказ
+  </Link>
+</teleport>
 </template>
 
 <style lang="postcss" scoped>
 .modal-btn {
   @apply w-12 h-10 rounded-md flex justify-center items-center transition;
+}
+.fixed-btn {
+  @apply fixed bottom-10 right-10 rounded-full flex justify-center items-center transition-[all] animate-bounce gap-1.5;
 }
 </style>

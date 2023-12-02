@@ -4,7 +4,7 @@ import MapChapter from '@/Components/MapChapter.vue';
 import TitleUnderlined from '@/Components/TitleUnderlined.vue';
 import Breadcrumbs from '@/Components/Breadcrumbs.vue';
 import { Head } from '@inertiajs/vue3';
-import { useBreadcrumbs } from '@/composables/index.js';
+import { useBreadcrumbs } from '@/Composables/index.js';
 
 const breadcrumbs = useBreadcrumbs()
 const pageTitle = breadcrumbs.value[breadcrumbs.value.length - 1].title
