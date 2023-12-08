@@ -8,8 +8,8 @@ use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 Breadcrumbs ::for('home', fn (BreadcrumbTrail $trail)
     => $trail -> push('Главная', route('home')));
 
-Breadcrumbs::for('feedback', fn(BreadcrumbTrail $trail)
-    => $trail -> parent('home') -> push('Обратная связь', route('feedback')));
+Breadcrumbs::for('feedback.index', fn(BreadcrumbTrail $trail)
+    => $trail -> parent('home') -> push('Обратная связь', route('feedback.index')));
 
 Breadcrumbs::for('contacts', fn(BreadcrumbTrail $trail)
     => $trail -> parent('home') -> push('Контактная информация', route('contacts')));

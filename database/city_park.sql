@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Дек 03 2023 г., 07:05
+-- Время создания: Дек 09 2023 г., 08:08
 -- Версия сервера: 10.4.27-MariaDB
 -- Версия PHP: 8.2.0
 
@@ -36,6 +36,31 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `feedback_items`
+--
+
+CREATE TABLE `feedback_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `theme` varchar(255) DEFAULT NULL,
+  `message` varchar(4096) NOT NULL,
+  `isRead` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `feedback_items`
+--
+
+INSERT INTO `feedback_items` (`id`, `name`, `email`, `theme`, `message`, `isRead`, `created_at`, `updated_at`) VALUES
+(1, 'Paul', 'test@mail.com', 'Моя тема', '<h1>Привет мир!!</h1><p><br></p><p> lorem ipsum  lorem ipsum dlorem ipsum  lorem ipsum dlorem ipsum  lorem ipsum dlor<u>em ipsum  lorem</u> ipsum dlorem ipsum  lorem ipsum dlorem ipsum  lorem ipsum dlorem ipsum  lorem ipsum dlorem ipsum  lorem ipsum dlorem ipsum  lorem ipsum dlorem ipsum  lorem ipsum dlorem ipsum  lorem ipsum dlorem ipsum  lorem ipsum dlorem ipsum  lorem ipsum dlorem ipsum  <a href=\"lorem ipsum d\" rel=\"noopener noreferrer\" target=\"_blank\">lorem ipsum d</a></p>', 1, '2023-12-08 03:15:14', '2023-12-09 04:07:34'),
+(2, 'Paul', 'test@mail.com', 'Hello', '<h1>Hello</h1><p>hellow;fs;aldsjfasdflkslfjk</p><p><br></p><p>fsdfjdkdghsdhfkghskgfkdsg</p><p><br></p><p><br></p><ol><li>fdsklfdsjfljdkgfljgkldjfkgsdfgs</li><li>fdgfdgdf</li><li class=\"ql-indent-1\">gdfgdgdgdf</li><li class=\"ql-indent-1\">ggdgf</li><li>gfdgdfgfd</li></ol><h1><br></h1>', 0, '2023-12-08 03:23:02', '2023-12-09 04:07:31');
 
 -- --------------------------------------------------------
 
@@ -106,7 +131,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2023_11_30_140222_drop_user_table', 3),
 (10, '2023_11_30_140603_create_user', 4),
 (11, '2023_12_01_065356_create_menu_items_table', 5),
-(16, '2023_12_01_160245_create_orders_table', 6);
+(16, '2023_12_01_160245_create_orders_table', 6),
+(19, '2023_12_07_181935_create_feedback_items_table', 7);
 
 -- --------------------------------------------------------
 
@@ -216,7 +242,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('muy2UWCiHEN7Go3DyBvMjalGBtZxWK2p0nYXdqEN', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.5993.2470 YaBrowser/23.11.0.2470 Yowser/2.5 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiUUEwOGxETjgwYTAyeG1UM2VKRVBmZG9uM3J6c21BVWllMzhUdlJjMiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRVUDdHb1lQQk14TTg5bEQ1eFBRR291QTdsUDVNR3JtV25RTnByR0x1aGNCU2J4S0k4eHhZQyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTIkVVA3R29ZUEJNeE04OWxENXhQUUdvdUE3bFA1TUdybVduUU5wckdMdWhjQlNieEtJOHh4WUMiO30=', 1701546246);
+('lWvQ3ma4CI059FfB9L8MNQ9t1HPCJRl926mh7PTq', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.5993.2470 YaBrowser/23.11.0.2470 Yowser/2.5 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiMVpGZENRRWExR05RcHU1NnFEcWlOeTFyU1U3RFdabDUxTUljQk1HayI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2MDoiJDJ5JDEyJFVQN0dvWVBCTXhNODlsRDV4UFFHb3VBN2xQNU1Hcm1XblFOcHJHTHVoY0JTYnhLSTh4eFlDIjt9', 1702105654),
+('W2f25BhmFfPPzr29nivJ0rnjd1neYAP2pWTkekFW', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.5993.2470 YaBrowser/23.11.0.2470 Yowser/2.5 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiWkN4aVcycG5VNnRWQzdYS0R0MVZJVGFiYjJNa25FTDE4d0djYWRnWSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM2OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW4vZmVlZGJhY2siO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTIkVVA3R29ZUEJNeE04OWxENXhQUUdvdUE3bFA1TUdybVduUU5wckdMdWhjQlNieEtJOHh4WUMiO30=', 1702016904);
 
 -- --------------------------------------------------------
 
@@ -243,7 +270,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `role`, `email_verified_at`, `password`, `remember_token`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
-(1, 'Paul', 'test@mail.com', '8 (888) 888-88-88', 'admin', NULL, '$2y$12$UP7GoYPBMxM89lD5xPQGouA7lP5MGrmWnQNprGLuhcBSbxKI8xxYC', NULL, NULL, '2023-11-30 11:08:11', '2023-11-30 14:18:06');
+(1, 'Paul', 'test@mail.com', '8 (888) 888-88-88', 'admin', NULL, '$2y$12$UP7GoYPBMxM89lD5xPQGouA7lP5MGrmWnQNprGLuhcBSbxKI8xxYC', NULL, NULL, '2023-11-30 11:08:11', '2023-11-30 14:18:06'),
+(3, 'Green', 'green@gmail.com', '+1234567890', 'user', NULL, '$2y$12$4cuy.iMUL2/CUvPFQMw1S.Bpl//XAudRYFEe6H73tdl.5/DroLPDy', NULL, NULL, '2023-12-07 14:47:04', '2023-12-07 14:47:04');
 
 --
 -- Индексы сохранённых таблиц
@@ -255,6 +283,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone`, `role`, `email_verified_at`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Индексы таблицы `feedback_items`
+--
+ALTER TABLE `feedback_items`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `menu_items`
@@ -320,6 +354,12 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT для таблицы `feedback_items`
+--
+ALTER TABLE `feedback_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT для таблицы `menu_items`
 --
 ALTER TABLE `menu_items`
@@ -329,7 +369,7 @@ ALTER TABLE `menu_items`
 -- AUTO_INCREMENT для таблицы `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT для таблицы `news`
@@ -353,7 +393,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

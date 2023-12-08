@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\FeedbackItemController;
 
 // WEB
 // Домашняя страница
@@ -14,7 +15,13 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contacts', fn() => inertia('Contacts'))->name("contacts");
 Route::get('/public_offer', fn() => inertia('PublicOffer'))->name('public-offer');
 Route::get('/private_policy', fn() => inertia('PrivacyPolicy'))->name('private-policy');
-Route::get('/feedback', fn() => inertia('Feedback'))->name('feedback');
+Route::prefix('/feedback')
+    ->controller(FeedbackItemController::class)
+    ->name('feedback.')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+    });
 
 // Заказ
 Route::controller(OrderController::class)
@@ -96,6 +103,14 @@ Route::prefix('admin')
                 Route::get('/', 'index')->name('list');
                 Route::put('/complete', 'complete')->name('complete');
                 Route::delete('/delete/{id}', 'destroy')->name('destroy');
+            });
+        Route::prefix('/feedback')
+            ->controller(FeedbackItemController::class)
+            ->name('feedback.')
+            ->group(function () {
+               Route::get('/', 'adminShow')->name('list');
+               Route::put('/change', 'changeReadStatus')->name('change-status');
+               Route::delete('/{id}', 'destroy')->name('destroy');
             });
 
         Route::get('/pages', fn() => redirect()->route('admin.pages.rest'))->name('pages');

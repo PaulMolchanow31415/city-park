@@ -15,6 +15,7 @@ export default defineComponent({
     { name: 'Пользователи', value: 'admin.users' },
     { name: 'Меню', value: 'admin.menu.list', },
     { name: 'Заказы', value: 'admin.order.list', },
+    { name: 'Входящие сообщения', value: 'admin.feedback.list', },
     /*routes: [
         { name: 'Категории продуктов', value: 'admin.categories' },
       ],*/

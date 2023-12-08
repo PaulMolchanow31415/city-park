@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use Psy\Util\Str;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\{Facades\Route, Facades\RateLimiter};
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Http\Request;
-use Illuminate\Support\{Facades\RateLimiter, Facades\Route};
 
 class RouteServiceProvider extends ServiceProvider {
     /**
@@ -29,6 +29,14 @@ class RouteServiceProvider extends ServiceProvider {
 
         RateLimiter::for('order.*', function (Request $request) {
             return Limit::perMinute(10)->by(session()->get('order') ?: $request->ip());
+        });
+
+        RateLimiter::for('feedback.store', function (Request $request) {
+            $throttleKey = Str::transliterate(
+                Str::lower($request->input(Fortify::username()).'|'.$request->ip())
+            );
+
+           return Limit::perMinute(20)->by($throttleKey);
         });
 
         $this->routes(function () {
