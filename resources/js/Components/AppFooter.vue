@@ -29,7 +29,7 @@ import { Link } from '@inertiajs/vue3';
       <ul class="flex flex-col gap-5">
         <li><Link class="link" :href="route('public-offer')">Публичная оферта</Link></li>
         <li><Link class="link" :href="route('private-policy')">Политика конфиденциальности</Link></li>
-        <li><Link class="link" :href="route('feedback')">Обратная связь</Link></li>
+        <li><Link class="link" :href="route('feedback.index')">Обратная связь</Link></li>
       </ul>
     </div>
   </footer>

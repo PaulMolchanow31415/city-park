@@ -15,7 +15,7 @@ export default defineComponent({
   inject: ['formatTime', 'formatPhoneToHref'],
   data() {
     return {
-      ordersInfoSelected: Array(this.orders.length).fill(false),
+      ordersInfoSelected: Array(this.orders.length).fill( false),
     }
   },
   computed: {
@@ -152,12 +152,3 @@ export default defineComponent({
   </div>
 </div>
 </template>
-
-<style scoped lang="postcss">
-tr {
-  @apply even:bg-white odd:bg-gray-50;
-}
-th {
-  @apply px-2.5 py-1 font-medium text-gray-900 whitespace-nowrap ;
-}
-</style>
